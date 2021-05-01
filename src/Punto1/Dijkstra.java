@@ -1,9 +1,16 @@
 package Punto1;
 
-public class Dijkstra implements CaminoCostoMinimoAlgorithm{
+import java.util.ArrayList;
+
+public class Dijkstra implements CaminoCostoMinimoAlgorithm
+{
+	
+	public Dijkstra() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
-	public int[][] calcularCaminoCostoMinimo(int[][] grafo) {
+	public int[][] calcularCaminoCostoMinimo(ArrayList<int[]> grafo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

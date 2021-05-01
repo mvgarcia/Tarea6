@@ -1,11 +1,17 @@
 package Punto1;
 
-public class FloydWarschall implements CaminoCostoMinimoAlgorithm{
+import java.util.ArrayList;
+
+public class FloydWarschall implements CaminoCostoMinimoAlgorithm
+{
+	public FloydWarschall() {
+		// TODO Auto-generated constructor stub
+	}
 	
-	public int[][] calcularCaminoCostoMinimo(int [][] grafo)
-	{
+	@Override
+	public int[][] calcularCaminoCostoMinimo(ArrayList<int[]> grafo) {
+		// TODO Auto-generated method stub
 		return null;
-		
 	}
 
 }
