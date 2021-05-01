@@ -110,7 +110,7 @@ public class CaminoCostoMinimo {
 				String fila="";
 				for(int j=0; j<matrizCaminosCostosMinimos.length;j++)
 				{
-					fila+=matrizCaminosCostosMinimos[i][j]+" ";
+					fila+=matrizCaminosCostosMinimos[i][j]+"\t";
 				}
 				writer.write(fila);
 				writer.write("\r\n");
