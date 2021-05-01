@@ -10,7 +10,7 @@ public class BellmanFord implements CaminoCostoMinimoAlgorithm
 	}
 
 	@Override
-	public int[][] calcularCaminoCostoMinimo(ArrayList<int[]> grafo) {
+	public int[][] calcularCaminoCostoMinimo(int[][] grafo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

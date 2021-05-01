@@ -42,19 +42,24 @@ public class CaminoCostoMinimo {
 			fr = new FileReader(archivo);
 			BufferedReader br = new BufferedReader(fr);
 			String linea;
-			ArrayList<int[]> grafo = new ArrayList<>();
+			int[][] grafo= new int[0][0];
 			System.out.print("\t.");
+			int numLinea=0;
 			while((linea = br.readLine()) != null)
 			{
 				String[] filaString = linea.split("\\s");
-				int[] filaInt = new int[filaString.length];
+				int tamanio=filaString.length;
+				if(numLinea==0) grafo=new int[tamanio][tamanio];
+				
+				int[] filaInt = new int[tamanio];
 				int i = 0;
-				while(i < filaString.length)
+				while(i < tamanio)
 				{
 					filaInt[i] = Integer.parseInt(filaString[i]);
 					i ++;
 				}
-				grafo.add(filaInt);
+				grafo[numLinea]=filaInt;
+				numLinea++;
 			}
 			br.close();
 			System.out.print("\t.\t Matriz procesada existosamente!\n");
