@@ -2,6 +2,7 @@ package Punto1;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,6 +11,7 @@ public class CaminoCostoMinimo {
 	public static void main(String[] args1) 
 	{
 		FileReader fr;
+		FileWriter fw;
 		try 
 		{
 			//Presenta opciones de archivos
@@ -22,8 +24,9 @@ public class CaminoCostoMinimo {
 			//Procesa el archivo indicado
 			Scanner sc = new Scanner(System.in);
 			String archivo = sc.nextLine();
+			int tamanio=0;
 			if(Integer.parseInt(archivo)==1) {archivo = "./src/distances5.txt";}
-			else if(Integer.parseInt(archivo)==2) {archivo = "./src/distances100.txt";}
+			else if(Integer.parseInt(archivo)==2) {archivo = "./src/distances100.txt"; }
 			else if(Integer.parseInt(archivo)==3) {archivo = "./src/distances1000.txt";}
 			else if(Integer.parseInt(archivo)==4)
 			{
@@ -36,8 +39,6 @@ public class CaminoCostoMinimo {
 				throw new Exception("La opcion de archivo \"" + archivo + "\" no es valida");
 			}
 			
-			//Convierte el archivo en una matriz ArrayList<int[]>
-			//	donde el indice del int[] indica la columna y el indice del ArrayList indica la fila
 			System.out.print("\nProcesando matriz\t.");
 			fr = new FileReader(archivo);
 			BufferedReader br = new BufferedReader(fr);
@@ -48,7 +49,7 @@ public class CaminoCostoMinimo {
 			while((linea = br.readLine()) != null)
 			{
 				String[] filaString = linea.split("\\s");
-				int tamanio=filaString.length;
+				tamanio=filaString.length;
 				if(numLinea==0) grafo=new int[tamanio][tamanio];
 				
 				int[] filaInt = new int[tamanio];
@@ -74,10 +75,12 @@ public class CaminoCostoMinimo {
 			long inicio=0;
 			long fin=0;
 			String algoritmo = sc.nextLine();
+			String metodo="";
 			sc.close();
 			int [][] matrizCaminosCostosMinimos;
 			if(Integer.parseInt(algoritmo)==1) 
 			{
+				metodo="Dijkstra";
 				Dijkstra dijkstra = new Dijkstra();
 				inicio = System.currentTimeMillis();
 				matrizCaminosCostosMinimos = dijkstra.calcularCaminoCostoMinimo(grafo);
@@ -85,6 +88,7 @@ public class CaminoCostoMinimo {
 			}
 			else if(Integer.parseInt(algoritmo)==2) 
 			{
+				metodo="BellmanFord";
 				BellmanFord bellmanFord = new BellmanFord();
 				inicio = System.currentTimeMillis();
 				matrizCaminosCostosMinimos = bellmanFord.calcularCaminoCostoMinimo(grafo);
@@ -92,12 +96,26 @@ public class CaminoCostoMinimo {
 			}
 			else if(Integer.parseInt(algoritmo)==3) 
 			{
+				metodo="FloydWarschall";
 				FloydWarschall floydWarschall = new FloydWarschall();
 				inicio = System.currentTimeMillis();
 				matrizCaminosCostosMinimos = floydWarschall.calcularCaminoCostoMinimo(grafo);
 				fin = System.currentTimeMillis();
 			}
 			else {throw new Exception("La opcion del algoritmo \"" + algoritmo + "\" no es valida");}
+			
+			FileWriter writer = new FileWriter("./src/sol/distances"+tamanio+metodo+".txt");
+			for(int i=0; i<matrizCaminosCostosMinimos.length;i++)
+			{
+				String fila="";
+				for(int j=0; j<matrizCaminosCostosMinimos.length;j++)
+				{
+					fila+=matrizCaminosCostosMinimos[i][j]+" ";
+				}
+				writer.write(fila);
+				writer.write("\r\n");
+			}
+            writer.close();
 			long tiempo = fin-inicio;
 			System.out.println("\nSe obtuvo el resultado en: " + tiempo + " milisegundos");
 		} 
