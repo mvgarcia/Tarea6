@@ -10,13 +10,11 @@ import java.util.Scanner;
 public class BFS 
 {
 	private int n;
-	private Integer[] predecesor;
 	private static int[][] grafo;
 	
 	public BFS()
 	{
 		n = 0;
-		predecesor = null;
 		grafo = null;
 	}
 	
@@ -25,7 +23,6 @@ public class BFS
 		String respuesta ="{";
 		
 		this.grafo = grafo;
-		predecesor = new Integer[grafo.length];
 		Deque<Integer> fila = new ArrayDeque<>(grafo.length);
 		boolean[] visitado = new boolean[grafo.length];
 		
@@ -53,7 +50,6 @@ public class BFS
 							{
 								visitado[i] = true;
 								respuesta += "," + i;
-								predecesor[i] = nodo;
 								fila.offer(i);
 							}
 						}
@@ -118,7 +114,7 @@ public class BFS
 			BFS o = new BFS();
 			long start = System.currentTimeMillis();
 			System.out.println("Resultado: " + o.bfs(grafo) + "\n");
-			long time =  start - System.currentTimeMillis();
+			long time =  System.currentTimeMillis()- start;
 			System.out.println("El algoritmo se demoró " + time + " milisegundos en resolver el problema");
 		}
 		

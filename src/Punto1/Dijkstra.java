@@ -1,6 +1,5 @@
 package Punto1;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -8,14 +7,12 @@ public class Dijkstra implements CaminoCostoMinimoAlgorithm
 {
 	private int n;
 	private int[] distancia;
-	private int[] origen;
 	private int[][] grafo;
 	
 	public Dijkstra()
 	{
 		n = 0;
 		distancia = null;
-		origen = null;
 	}
 	
 	@Override
@@ -72,7 +69,6 @@ public class Dijkstra implements CaminoCostoMinimoAlgorithm
     	pq.offer(new Nodo(origen, 0));
     	
     	boolean[] visitado = new boolean[n];
-        this.origen = new int[n];
         
         while(!pq.isEmpty())
         {
@@ -93,7 +89,6 @@ public class Dijkstra implements CaminoCostoMinimoAlgorithm
             	
             	if(nuevaDistancia < distancia[i] || (distancia[i] == -1 && nuevaDistancia != Integer.MAX_VALUE))
             	{
-            		this.origen[i] = nodo.id;
             		distancia[i] = nuevaDistancia;
             		pq.offer(new Nodo(i, distancia[i]));
             	}

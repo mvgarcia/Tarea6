@@ -1,9 +1,11 @@
+/BFS.txt
+/DFS.txt
 /Punto1/
 /Punto2/
 /Punto3/
 /distances100.txt
 /distances1000.txt
 /distances5.txt
+/distances5SinCiclo.txt
 /distancesDisconnected.txt
 /sol/
-/BFS.txt
