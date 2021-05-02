@@ -83,6 +83,7 @@ public class BFS
 			//Procesa el archivo indicado
 			Scanner sc = new Scanner(System.in);
 			String archivo = "./src/" +sc.nextLine();
+			sc.close();
 			int tamanio=0;
 			
 			//Procesa la matriz dada
