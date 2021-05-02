@@ -3,6 +3,7 @@ package Punto3;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Punto1.BellmanFord;
@@ -12,25 +13,25 @@ import Punto1.FloydWarschall;
 public class DFS 
 {
 	private int[][] grafo;
-	int[] ordenTopologico;
+	ArrayList<Integer> ordenTopologico;
 	
 	
 	public DFS()
 	{
 		grafo = null;
+		ordenTopologico= new ArrayList<Integer>();
 	}
 	
 	public boolean dfs(int[][] grafo)
 	{
 		this.grafo = grafo;
 		
-		boolean[] visitado = new boolean[grafo.length];
-		boolean[] stack = new boolean[grafo.length];
-		
 		int i = 0;
 		while(i< grafo.length)
 		{
-			if(hayCiclo(i, visitado, stack))
+			boolean[] visitado = new boolean[grafo.length];
+			boolean[] stack = new boolean[grafo.length];
+			if(hayCiclo(i, visitado, stack)==true)
 			{
 				return true;
 			}
@@ -43,24 +44,30 @@ public class DFS
 	
 	private boolean hayCiclo(int i, boolean[] visitado, boolean[] stack) 
 	{
-		if(stack[i]) {return true;}
-		else if (visitado[i]) {return true;}
+		boolean hay=false;
+		if(stack[i]) {hay= true;}
+		if (visitado[i]) {hay= true;}
 		
 		stack[i] = true;
 		visitado[i] = true;
 		
 		int j = 0;
-		while(j < grafo[i].length)
+		
+		while(j < grafo[i].length && hay==false)
 		{
-			if(hayCiclo(j, visitado, stack) && grafo[i][j]>0)
+			if(grafo[i][j]>0 && !ordenTopologico.contains(i) && !ordenTopologico.contains(j)) {ordenTopologico.add(i);ordenTopologico.add(j);}
+			else if(grafo[i][j]>0 && !ordenTopologico.contains(i)){ordenTopologico.add(0,i);}
+			else if(grafo[i][j]>0 && !ordenTopologico.contains(j)){ordenTopologico.add(j);}
+			if(grafo[i][j]>0 && hayCiclo(j, visitado, stack))
 			{
-				return true;
+				hay= true;
 			}
 			
 			stack[i]= false;
+			j++;
 		}
 		
-		return false;
+		return hay;
 	}
 
 	public static void main(String[] args1) 
@@ -119,6 +126,19 @@ public class DFS
 			}
 			br.close();
 			System.out.print("\t.\t Matriz procesada existosamente!\n");
+			
+			DFS algoritmo= new DFS();
+			boolean ciclo=algoritmo.dfs(grafo);
+			System.out.println("Hay ciclo: "+ciclo);			
+			if(ciclo==false)
+			{
+				String orden="";
+				for (int n: algoritmo.ordenTopologico)
+				{
+					orden+=n+" ";
+				}
+				System.out.println("Orden topológico:"+orden);
+			}
 			
 			
 		} 
